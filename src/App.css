@@ -1,0 +1,106 @@
+.App {
+  text-align: center;
+}
+.sidebar{
+position: absolute;
+width: 25%;
+height: 100%;
+top: 0;
+left: 0;
+overflow: hidden;
+border-right: 1px solid rgba(0, 0, 0, 0.25);
+}
+
+#search{
+  top:10;
+  /* margin-bottom:10px; */
+  padding: 5px 2px
+}
+
+.map {
+position: absolute;
+left: 25.5%;
+width: 75%;
+top: 0;
+bottom: 0;
+}
+
+.heading {
+background: #fff;
+/* border-bottom: 1px solid #eee; */
+height: 60px;
+line-height: 60px;
+padding: 0 10px;
+}
+
+.listings {
+margin-top:75px;
+height: 100%;
+overflow: auto;
+padding:10px 10px;
+}
+
+.listings .item {
+display: block;
+border-bottom: 1px solid #eee;
+padding: 20px;
+text-decoration: none;
+}
+
+.listings .item:last-child { border-bottom: none; }
+
+.listings .item .title {
+display: block;
+color: #00853e;
+font-weight: 700;
+}
+
+.listings .item .title small { font-weight: 400; }
+
+.listings .item.active .title,
+.listings .item .title:hover { color: #8cc63f; }
+
+.listings .item.active {
+background-color: #f8f8f8;
+}
+
+::-webkit-scrollbar {
+width: 3px;
+height: 3px;
+border-left: 0;
+background: rgba(0, 0, 0, 0.1);
+}
+
+::-webkit-scrollbar-track {
+background: none;
+}
+
+::-webkit-scrollbar-thumb {
+background: #00853e;
+border-radius: 0;
+}
+.marker {
+  background-color: blue;
+  width: 1.5rem;
+  height: 1.5rem;
+  display: block;
+  left: -0.5rem;
+  top: -0.5rem;
+  position: relative;
+  border-radius: 1.5rem 1.5rem 0;
+  transform: rotate(45deg);
+  border: 1px solid #FFFFFF;
+}
+
+.marker::after {
+  position: 'absolute';
+  content: '';
+  width: 0.4rem;
+  height: 0.4rem;
+  border-radius: 50%;
+  top: 50%;
+  left: 50%;
+  margin-left: -4px;
+  margin-top: -4px;
+  background-color: #fff;
+}
