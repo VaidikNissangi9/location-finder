@@ -6,6 +6,7 @@ import Navbar from './Navbar'
 import axios from 'axios'
 import auth from "./auth";
 import { Snackbar } from "@material-ui/core";
+import MapboxGeocoder from '@mapbox/mapbox-gl-geocoder'
 
 mapboxgl.accessToken = "pk.eyJ1IjoiYnJpYW5iYW5jcm9mdCIsImEiOiJsVGVnMXFzIn0.7ldhVh3Ppsgv4lCYs65UdA";
 const style = {
@@ -28,13 +29,25 @@ const addLocation = (props) => {
   const [message, setMessage] = useState("")
 
   useEffect(() => {
-    setMap(new mapboxgl.Map({
+    var map = new mapboxgl.Map({
       container: mapContainer.current,
       style: 'mapbox://styles/mapbox/streets-v11',
       center: [-96, 36.5],
       zoom: 9
+    })
+    map.addControl(new mapboxgl.GeolocateControl({
+      positionOptions: {
+        enableHighAccuracy: true
+      },
+      trackUserLocation: true
     }));
+    map.addControl(new MapboxGeocoder({
+      accessToken: mapboxgl.accessToken,
+      mapboxgl: mapboxgl
+    }));
+    setMap(map)
   }, [])
+
   if (map !== null) {
     map.on('click', function (event) {
       if (marker != null) {
@@ -75,7 +88,7 @@ const addLocation = (props) => {
         <div ref={el => (mapContainer.current = el)} style={style} />
         <div id='menu'>
           <div >
-            {JSON.stringify(coordinates)}
+            {"Lat:" + coordinates.lat + " Lng: " + coordinates.lng}
           </div>
           <input id='streets-v11' type='radio' name='rtoggle' value='streets' defaultChecked onClick={() => map.setStyle('mapbox://styles/mapbox/streets-v11')} />
           streets

@@ -58,9 +58,9 @@ export default class locations extends Component {
                                 this.props.history.push("/locations/new")
                             }} />
                         </Grid>
-                        <Grid item container direction="column" alignItems="center" xs={3} spacing={this.state.locations.length}>
-                            <TableSortLabel onClick={this.handleSort}>Sort</TableSortLabel>
-                            {[...this.state.sort] ? (this.state.locations.reverse().map(location => (
+                        <Grid item container direction="column" alignItems="center" xs={3}>
+                            <TableSortLabel onClick={()=> this.handleSort()}>Sort</TableSortLabel>
+                            {this.state.sort ? (this.state.locations.reverse().map(location => (
                                 <Grid item key={location.id}  >
                                     <Link to={'/locations/' + location.id} onClick={() => this.handleOnClickLocation(location)}  > <Button> {'Latitute:' + location.lat + ' ,Longitude:' + location.lng} </Button> </Link>
                                 </Grid>)
