@@ -24,7 +24,7 @@ const addLocation = (props) => {
   };
   const mapContainer = useRef();
   const [map, setMap] = useState(null);
-  const [coordinates, setCoordinates] = useState({ id: 3, lng: "", lat: "" })
+  const [coordinates, setCoordinates] = useState({ lng: "", lat: "" })
   const [message, setMessage] = useState("")
 
   useEffect(() => {

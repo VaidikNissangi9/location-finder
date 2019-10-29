@@ -16,16 +16,14 @@ export default class LocationFinder extends Component {
             <React.Fragment>
                 <Route exact path={["/", "/maps"]} component={LandingPage} />
                 <Route exact path="/login" component={Login} />
-
                 <ProtectedRoute exact path="/home" component={Home} />
-
-                <Route path="/locations/:id" render={(props) => {
+                <Route path={["/locations/:id", "/locations"]} render={(props) => {
+                    console.log(props.match.params.id)
                     switch (props.match.params.id) {
                         case "new": return <AddLocation {...props} />;
                         default: return <Locations {...props} />;
                     }
                 }} />
-                <Route exact path={"/locations"} component={Locations} />
             </React.Fragment>
 
         )

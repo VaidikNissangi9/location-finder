@@ -4,11 +4,11 @@ import axios from 'axios';
 import { Link } from 'react-router-dom';
 import auth from './auth'
 import Navbar from './Navbar'
+import { Grid, Button, TableSortLabel } from '@material-ui/core';
 
-import { Grid, List, ListItem } from '@material-ui/core';
 const styles = {
     marginTop: "20px",
-    width: "calc(74vw )",
+    width: "calc(75vw )",
     height: "calc(84vh - 5px)",
     position: "absolute"
 };
@@ -17,7 +17,8 @@ export default class locations extends Component {
     state = {
         locations: [],
         currentLocation: {},
-        check: false
+        check: false,
+        sort: false
     }
     componentDidMount() {
         axios.get('http://localhost:3001/locations', {
@@ -34,13 +35,17 @@ export default class locations extends Component {
             check: true
         })
     }
+    handleSort = () => {
+        this.setState({
+            sort: !this.state.sort
+        })
+    }
 
     render() {
         if (this.state.locations.length === 0) {
             return <div></div>
         }
         else {
-            // console.log(this.props)
             return (
                 <div>
                     <Grid container spacing={2}>
@@ -54,17 +59,19 @@ export default class locations extends Component {
                             }} />
                         </Grid>
                         <Grid item container direction="column" alignItems="center" xs={3} spacing={this.state.locations.length}>
-                            <List>
-                                {this.state.locations.map(location => (
-                                    <ListItem  key={location.id}  >
-                                        <Link to={'/locations/' + location.id} onClick={() => this.handleOnClickLocation(location)}  > {'Latitute:' + location.lat + ' ,Longitude:' + location.lng}  </Link>
-                                    </ListItem>)
-                                )
-                                }
-                            </List>
+                            <TableSortLabel onClick={this.handleSort}>Sort</TableSortLabel>
+                            {[...this.state.sort] ? (this.state.locations.reverse().map(location => (
+                                <Grid item key={location.id}  >
+                                    <Link to={'/locations/' + location.id} onClick={() => this.handleOnClickLocation(location)}  > <Button> {'Latitute:' + location.lat + ' ,Longitude:' + location.lng} </Button> </Link>
+                                </Grid>)
+                            )) : (this.state.locations.map(location => (
+                                <Grid item key={location.id}  >
+                                    <Link to={'/locations/' + location.id} onClick={() => this.handleOnClickLocation(location)}  > <Button> {'Latitute:' + location.lat + ' ,Longitude:' + location.lng} </Button> </Link>
+                                </Grid>)
+                            ))
+                            }
                         </Grid>
                         <Grid item xs={9}>
-
                             <PublicMap styles={styles} coordinates={this.state.currentLocation} check={this.state.check} />
                         </Grid>
                     </Grid>

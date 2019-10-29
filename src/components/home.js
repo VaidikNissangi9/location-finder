@@ -8,7 +8,7 @@ const home = (props) => {
         auth.logout(() => {
           props.history.push("/");
         });
-      }} log='Logout' type='locations' showList={()=>{
+      }} log='Logout' type='locations' showList={() => {
         props.history.push("/locations")
       }} />
     </React.Fragment>

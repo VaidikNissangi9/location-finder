@@ -28,14 +28,11 @@ export default function ButtonAppBar(props) {
         <div className={classes.root}>
             <AppBar position="static" color="secondary">
                 <Toolbar>
-                    {/* <IconButton edge="start" className={classes.menuButton} color="inherit" aria-label="menu">
-                        <MenuIcon />
-                    </IconButton> */}
                     <Typography variant="h6" className={classes.title}>
                         Location Finder
                     </Typography>
-                    <Button color="inherit"  onClick={props.showMaps||props.showList}  >{props.type} </Button>
-                   <Button type="submit" color="inherit" onClick={props.onSubmit}  >{props.log} </Button>
+                    <Button color="inherit" onClick={props.showMaps || props.showList}  >{props.type} </Button>
+                    <Button type="submit" color="inherit" onClick={props.onSubmit}  >{props.log} </Button>
                 </Toolbar>
             </AppBar>
 

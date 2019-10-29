@@ -4,14 +4,13 @@ import "react-map-gl-geocoder/dist/mapbox-gl-geocoder.css";
 import "mapbox-gl/dist/mapbox-gl.css";
 import MapboxGeocoder from '@mapbox/mapbox-gl-geocoder'
 
-
 mapboxgl.accessToken = "pk.eyJ1IjoiYnJpYW5iYW5jcm9mdCIsImEiOiJsVGVnMXFzIn0.7ldhVh3Ppsgv4lCYs65UdA";
 let marker;
 const MapboxGLMap = (props) => {
   const mapContainer = useRef();
   const [map, setMap] = useState(null);
   useEffect(() => {
-    var map=new mapboxgl.Map({
+    var map = new mapboxgl.Map({
       container: mapContainer.current,
       style: 'mapbox://styles/mapbox/streets-v11',
       center: [-96, 36.5],
@@ -29,36 +28,33 @@ const MapboxGLMap = (props) => {
     }));
     setMap(map)
   }, [])
-  
-    
-  
+
   if (props.check) {
     map.flyTo({
       center: [props.coordinates.lng, props.coordinates.lat]
     });
-    // console.log(props.coordinates)
-    if(marker!=null){
-      
+    if (marker != null) {
+
       marker.remove()
     }
-    marker=new mapboxgl.Marker()
+    marker = new mapboxgl.Marker()
       .setLngLat(props.coordinates)
       .addTo(map);
-  
-}
+  }
 
-return (
-  <React.Fragment>
-    <div ref={el => (mapContainer.current = el)} style={props.styles} />
-    <div id='menu'>
-      <input id='streets-v11' type='radio' name='rtoggle' value='streets' defaultChecked onClick={() => map.setStyle("mapbox://styles/mapbox/streets-v11")} />
-      streets
+  return (
+    <React.Fragment>
+      <div ref={el => (mapContainer.current = el)} style={props.styles} />
+      <div id='menu'>
+        <input id='streets-v11' type='radio' name='rtoggle' value='streets' defaultChecked onClick={() => map.setStyle("mapbox://styles/mapbox/streets-v11")} />
+        streets
           <input id='satellite-v9' type='radio' name='rtoggle' value='satellite' onClick={() => map.setStyle("mapbox://styles/mapbox/satellite-v9")} />
-      satellite
+        satellite
         </div>
-  </React.Fragment>
-);
+    </React.Fragment>
+  );
 };
+
 MapboxGLMap.defaultProps = {
   styles: {
     marginTop: "20px",
