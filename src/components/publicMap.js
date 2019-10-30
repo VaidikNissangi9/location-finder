@@ -43,21 +43,20 @@ const MapboxGLMap = (props) => {
   }
 
   return (
-    <React.Fragment>
+    <div>
       <div ref={el => (mapContainer.current = el)} style={props.styles} />
-      <div id='menu'>
+      <div className="switch-field">
         <input id='streets-v11' type='radio' name='rtoggle' value='streets' defaultChecked onClick={() => map.setStyle("mapbox://styles/mapbox/streets-v11")} />
-        streets
-          <input id='satellite-v9' type='radio' name='rtoggle' value='satellite' onClick={() => map.setStyle("mapbox://styles/mapbox/satellite-v9")} />
-        satellite
-        </div>
-    </React.Fragment>
+        <label htmlFor='streets-v11'>streets</label>
+        <input id='satellite-v9' type='radio' name='rtoggle' value='satellite' onClick={() => map.setStyle("mapbox://styles/mapbox/satellite-v9")} />
+        <label htmlFor='satellite-v9'>satellite</label>
+      </div>
+    </div>
   );
 };
-
 MapboxGLMap.defaultProps = {
   styles: {
-    marginTop: "20px",
+    marginTop: "28px",
     width: "calc(99.5vw )",
     height: "calc(87vh - 5px)",
     position: "absolute"

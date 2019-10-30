@@ -90,10 +90,12 @@ const addLocation = (props) => {
           <div >
             {"Lat:" + coordinates.lat + " Lng: " + coordinates.lng}
           </div>
-          <input id='streets-v11' type='radio' name='rtoggle' value='streets' defaultChecked onClick={() => map.setStyle('mapbox://styles/mapbox/streets-v11')} />
-          streets
-          <input id='satellite-v9' type='radio' name='rtoggle' value='satellite' onClick={() => map.setStyle('mapbox://styles/mapbox/satellite-v9')} />
-          satellite
+          <div className="switch-field">
+            <input id='streets-v11' type='radio' name='rtoggle' value='streets' defaultChecked onClick={() => map.setStyle("mapbox://styles/mapbox/streets-v11")} />
+            <label htmlFor='streets-v11'>streets</label>
+            <input id='satellite-v9' type='radio' name='rtoggle' value='satellite' onClick={() => map.setStyle("mapbox://styles/mapbox/satellite-v9")} />
+            <label htmlFor='satellite-v9'>satellite</label>
+          </div>
         </div>
       </React.Fragment>
       {<Snackbar

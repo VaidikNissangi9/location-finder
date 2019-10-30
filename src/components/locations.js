@@ -8,8 +8,8 @@ import { Grid, Button, TableSortLabel } from '@material-ui/core';
 
 const styles = {
     marginTop: "20px",
-    width: "calc(75vw )",
-    height: "calc(84vh - 5px)",
+    width: "calc(73vw )",
+    height: "calc(83vh - 5px)",
     position: "absolute"
 };
 
@@ -34,6 +34,8 @@ export default class locations extends Component {
             currentLocation: coordinates,
             check: true
         })
+        
+        console.log(this.state.sort)
     }
     handleSort = () => {
         this.setState({
