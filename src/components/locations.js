@@ -7,9 +7,9 @@ import Navbar from './Navbar'
 import { Grid, Button, TableSortLabel } from '@material-ui/core';
 
 const styles = {
-    marginTop: "20px",
+    marginTop: "30px",
     width: "calc(73vw )",
-    height: "calc(83vh - 5px)",
+    height: "calc(82vh - 5px)",
     position: "absolute"
 };
 
@@ -34,12 +34,12 @@ export default class locations extends Component {
             currentLocation: coordinates,
             check: true
         })
-        
-        console.log(this.state.sort)
+
     }
+
     handleSort = () => {
         this.setState({
-            sort: !this.state.sort
+            locations: this.state.locations.reverse()
         })
     }
 
@@ -61,16 +61,16 @@ export default class locations extends Component {
                             }} />
                         </Grid>
                         <Grid item container direction="column" alignItems="center" xs={3}>
-                            <TableSortLabel onClick={()=> this.handleSort()}>Sort</TableSortLabel>
-                            {this.state.sort ? (this.state.locations.reverse().map(location => (
-                                <Grid item key={location.id}  >
-                                    <Link to={'/locations/' + location.id} onClick={() => this.handleOnClickLocation(location)}  > <Button> {'Latitute:' + location.lat + ' ,Longitude:' + location.lng} </Button> </Link>
-                                </Grid>)
-                            )) : (this.state.locations.map(location => (
-                                <Grid item key={location.id}  >
-                                    <Link to={'/locations/' + location.id} onClick={() => this.handleOnClickLocation(location)}  > <Button> {'Latitute:' + location.lat + ' ,Longitude:' + location.lng} </Button> </Link>
-                                </Grid>)
-                            ))
+                            <TableSortLabel onClick={() => this.handleSort()}>Sort</TableSortLabel>
+                            {this.state.locations.map(location => (
+                                <Grid item key={location.id}>
+                                    <Link to={'/locations/' + location.id}
+                                        onClick={() => this.handleOnClickLocation(location)} >
+                                        <Button>
+                                            {'Latitute:' + location.lat + ' ,Longitude:' + location.lng}
+                                        </Button>
+                                    </Link>
+                                </Grid>))
                             }
                         </Grid>
                         <Grid item xs={9}>
