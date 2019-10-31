@@ -49,6 +49,7 @@ export default class locations extends Component {
         }
         else {
             return (
+                
                 <div>
                     <Grid container spacing={2}>
                         <Grid item xs={12}>
@@ -66,7 +67,7 @@ export default class locations extends Component {
                                 <Grid item key={location.id}>
                                     <Link to={'/locations/' + location.id}
                                         onClick={() => this.handleOnClickLocation(location)} >
-                                        <Button>
+                                        <Button >
                                             {'Latitute:' + location.lat + ' ,Longitude:' + location.lng}
                                         </Button>
                                     </Link>
