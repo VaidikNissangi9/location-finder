@@ -16,7 +16,9 @@
     "react-mapbox-gl-geocoder": "^1.1.0",
     "react-scripts": "0.9.5"
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "jest": "^24.9.0"
+  },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",

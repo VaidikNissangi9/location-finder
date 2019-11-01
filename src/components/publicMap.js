@@ -29,7 +29,7 @@ const MapboxGLMap = (props) => {
     setMap(map)
   }, [])
 
-  if (props.check) {
+  if (props.coordinates.lng && props.coordinates.lat) {
     map.flyTo({
       center: [props.coordinates.lng, props.coordinates.lat]
     });
@@ -64,7 +64,7 @@ MapboxGLMap.defaultProps = {
   coordinates: {
     lng: -96,
     lat: 36.5
-  }, check: false
+  }
 }
 export default MapboxGLMap;
 

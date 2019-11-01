@@ -17,7 +17,6 @@ export default class locations extends Component {
     state = {
         locations: [],
         currentLocation: {},
-        check: false,
         sort: false
     }
     componentDidMount() {
@@ -31,8 +30,7 @@ export default class locations extends Component {
 
     handleOnClickLocation = (coordinates) => {
         this.setState({
-            currentLocation: coordinates,
-            check: true
+            currentLocation: coordinates  
         })
 
     }
@@ -75,7 +73,7 @@ export default class locations extends Component {
                             }
                         </Grid>
                         <Grid item xs={9}>
-                            <PublicMap styles={styles} coordinates={this.state.currentLocation} check={this.state.check} />
+                            <PublicMap styles={styles} coordinates={this.state.currentLocation}  />
                         </Grid>
                     </Grid>
                 </div>
