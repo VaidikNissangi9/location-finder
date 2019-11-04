@@ -29,12 +29,11 @@ const MapboxGLMap = (props) => {
     setMap(map)
   }, [])
 
-  if (props.coordinates.lng && props.coordinates.lat) {
+  if (props.check) {
     map.flyTo({
       center: [props.coordinates.lng, props.coordinates.lat]
     });
     if (marker != null) {
-
       marker.remove()
     }
     marker = new mapboxgl.Marker()

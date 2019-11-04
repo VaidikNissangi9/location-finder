@@ -17,7 +17,8 @@ export default class locations extends Component {
     state = {
         locations: [],
         currentLocation: {},
-        sort: false
+        sort: false,
+        check:false
     }
     componentDidMount() {
         axios.get('http://localhost:3001/locations', {
@@ -30,7 +31,8 @@ export default class locations extends Component {
 
     handleOnClickLocation = (coordinates) => {
         this.setState({
-            currentLocation: coordinates  
+            currentLocation: coordinates,
+            check:true  
         })
 
     }
@@ -73,7 +75,7 @@ export default class locations extends Component {
                             }
                         </Grid>
                         <Grid item xs={9}>
-                            <PublicMap styles={styles} coordinates={this.state.currentLocation}  />
+                            <PublicMap styles={styles} coordinates={this.state.currentLocation} check={this.state.check}  />
                         </Grid>
                     </Grid>
                 </div>
