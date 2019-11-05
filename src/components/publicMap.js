@@ -14,7 +14,7 @@ const MapboxGLMap = (props) => {
       container: mapContainer.current,
       style: 'mapbox://styles/mapbox/streets-v11',
       center: [-96, 36.5],
-      zoom: 9
+      zoom: 5
     });
     map.addControl(new mapboxgl.GeolocateControl({
       positionOptions: {
@@ -63,7 +63,8 @@ MapboxGLMap.defaultProps = {
   coordinates: {
     lng: -96,
     lat: 36.5
-  }
+  },
+  check:false
 }
 export default MapboxGLMap;
 
