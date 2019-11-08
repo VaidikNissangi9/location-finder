@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React from 'react'
 import { LandingPage } from './landing.page'
 import { Login } from './login';
 import { Route } from 'react-router-dom';
@@ -7,16 +7,13 @@ import Home from './home';
 import Locations from './locations'
 import AddLocation from './addLocation';
 
-export default class LocationFinder extends Component {
-    
-    render() {
+const LocationFinder = ()=> {  
         return (
             <React.Fragment>
                 <Route exact path={["/", "/maps"]} component={LandingPage} />
                 <Route exact path="/login" component={Login} />
                 <ProtectedRoute exact path="/home" component={Home} />
                 <Route path={["/locations/:id", "/locations"]} render={(props) => {
-                    // console.log(props.match.params.id)
                     switch (props.match.params.id) {
                         case "new": return <ProtectedRoute component={AddLocation} />;
                         default: return <ProtectedRoute component={Locations} />;
@@ -26,4 +23,4 @@ export default class LocationFinder extends Component {
 
         )
     }
-}
+export default LocationFinder
