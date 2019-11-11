@@ -47,6 +47,8 @@ const useStyles = theme => ({
 const LogIn = (props) => {
 
   useEffect(() => {
+    if (ls.get('isAuthenticated') === null)
+      ls.set('isAuthenticated', false);
     if (ls.get('isAuthenticated')) {
       login(() => props.history.push('/home'))
     }
