@@ -149,7 +149,7 @@ const mapDispatchToProps = dispatch => {
   }
 }
 
-Login.propTypes = {
+LogIn.propTypes = {
   username: PropTypes.string,
   password: PropTypes.string,
   setPassword: PropTypes.func,

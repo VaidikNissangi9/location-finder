@@ -9,7 +9,10 @@ export function login(urlPush) {
   urlPush();
 }
 
-
+/**
+ * on logout moves to landing page
+ * @param {*} urlPush 
+ */
 export function logout(urlPush) {
   ls.set('isAuthenticated', false)
   urlPush();
