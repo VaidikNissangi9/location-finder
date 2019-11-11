@@ -1,20 +1,17 @@
 import ls from 'local-storage';
 
-class Auth {
-  constructor() {
-    if (ls.get('isAuthenticated') === null)
-      ls.set('isAuthenticated', false);
-  }
-
-  login(urlPush) {
-    ls.set('isAuthenticated', true)
-    urlPush();
-  }
-
-  logout(urlPush) {
-    ls.set('isAuthenticated', false)
-    urlPush();
-  }
+/**
+ * on login moves to respective page
+ * @param {*} urlPush 
+ */
+export function login(urlPush) {
+  ls.set('isAuthenticated', true)
+  urlPush();
 }
 
-export default new Auth();
+
+export function logout(urlPush) {
+  ls.set('isAuthenticated', false)
+  urlPush();
+}
+

@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from 'react'
 import PublicMap from './publicMap'
-import axios from 'axios';
 import { Link } from 'react-router-dom';
-import auth from './auth'
+import { logout } from './auth'
 import Navbar from './Navbar'
 import { Grid, Button, TableSortLabel } from '@material-ui/core';
 import { connect } from 'react-redux'
+import { fetchLocations } from '../actions/locationsActions'
+import PropTypes from 'prop-types'
 
 const styles = {
     marginTop: "30px",
@@ -18,12 +19,7 @@ const locations = (props) => {
     // console.log(props)
     const [check, setCheck] = useState(false)
     useEffect(() => {
-        axios.get('http://localhost:3001/locations', {
-            headers: {
-                "Content-Type": "application/json",
-                "Authorization": "fake-access-token"
-            }
-        }).then(res => props.getLocations(res.data)).catch(error => console.log(error))
+        props.setLocations();
     }, [])
     if (props.locations.length !== 0 && !check) {
         const locationId = parseInt(props.match.params.id, 10);
@@ -50,7 +46,7 @@ const locations = (props) => {
                 <Grid container spacing={2}>
                     <Grid item xs={12}>
                         <Navbar onSubmit={() => {
-                            auth.logout(() => {
+                            logout(() => {
                                 props.history.push("/");
                             });
                         }} log="Logout" type="Add Location" showList={() => {
@@ -89,26 +85,28 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = dispatch => {
     return {
-        getLocations: locations => {
-            dispatch({
-                type: "getLocations",
-                locations
-            })
-        },
         reverseLocations: locations => {
             dispatch({
-                type: "reverseLocations",
+                type: "REVERSE_LOCATIONS",
                 locations: locations.reverse()
             })
         },
         getCenter: center => {
             dispatch({
-                type: "getCenter",
+                type: "GET_CENTER",
                 center
             })
-        }
+        },
+        setLocations: () => fetchLocations(dispatch)
     }
 }
 
+locations.propTypes = {
+    center: PropTypes.array,
+    locations: PropTypes.array,
+    getCenter: PropTypes.func,
+    reverseLocations: PropTypes.func,
+    setLocations: PropTypes.func
+}
 
 export default connect(mapStateToProps, mapDispatchToProps)(locations);

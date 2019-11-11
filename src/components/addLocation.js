@@ -1,44 +1,40 @@
-import React, { useState} from "react";
+import React, { useState, useEffect } from "react";
 // import mapboxgl from "mapbox-gl";
 import "react-map-gl-geocoder/dist/mapbox-gl-geocoder.css";
 import "mapbox-gl/dist/mapbox-gl.css";
 import Navbar from './Navbar'
-import axios from 'axios'
-import auth from "./auth";
+import { logout } from "./auth";
 import { Snackbar } from "@material-ui/core";
-import {connect} from 'react-redux'
+import { connect } from 'react-redux'
 import PublicMap from './publicMap'
-
-
+import { addLocations } from '../actions/locationsActions'
+import PropTypes from 'prop-types'
 
 const addLocation = (props) => {
 
   const [isSnackbarOpen, setisSnackbarOpen] = useState(false);
+
   const handleClose = () => {
     setisSnackbarOpen(false)
   };
+
   const [message, setMessage] = useState("")
-
-
-  function handleAddLocation() {
-    let center={lng:props.center[0],lat:props.center[1]}
-
-    axios.post("http://localhost:3001/locations",center , {
-      headers: {
-        "Content-Type": "application/json",
-        "Authorization": "fake-access-token"
-      }
-    }).then(reponse => {
+  useEffect(() => {
+    if (props.locationAdded) {
       setMessage('success')
       setisSnackbarOpen(true)
-  
-    }).catch(error => setMessage('error'))
+    }
+  }, [props.locationAdded])
+
+  function handleAddLocation() {
+    let center = { lng: props.center[0], lat: props.center[1] }
+    props.addLocations(center);
   }
+
   return (
     <div>
-
       <Navbar log="logout" type="add" showList={handleAddLocation} onSubmit={() => {
-        auth.logout(() => {
+        logout(() => {
           props.history.push("/");
         });
       }} />
@@ -47,7 +43,7 @@ const addLocation = (props) => {
           <div >
             {"Lat:" + props.center[0] + " Lng: " + props.center[1]}
           </div>
-          <PublicMap/>
+          <PublicMap />
         </div>
       </React.Fragment>
       {<Snackbar
@@ -66,21 +62,30 @@ const addLocation = (props) => {
     </div>
   )
 }
-const mapStateToProps=(state)=>{
-  return{
-    center:state.center
+const mapStateToProps = (state) => {
+  return {
+    center: state.center,
+    locationAdded: state.locationAdded
   }
 }
 
 const mapDispatchToProps = dispatch => {
   return {
-      getCenter:center=>{
-          dispatch({
-              type:"getCenter",
-              center
-          })
-      }
+    getCenter: center => {
+      dispatch({
+        type: "GET_CENTER",
+        center
+      })
+    },
+    addLocations: center => { addLocations(center, dispatch) }
   }
 }
 
-export default connect(mapStateToProps,mapDispatchToProps) (addLocation)
+addLocation.propTypes = {
+  center: PropTypes.array,
+  locationAdded: PropTypes.bool,
+  getCenter: PropTypes.func,
+  addLocations: PropTypes.func
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(addLocation)

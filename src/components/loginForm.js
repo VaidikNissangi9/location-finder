@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect } from 'react';
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -7,9 +7,14 @@ import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
 import { withStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
-import axios from 'axios';
 import { withRouter } from 'react-router-dom'
-import auth from './auth';
+import { login } from './auth';
+import { connect } from 'react-redux'
+import { checkLoginCredentials } from '../actions/loginActions'
+import ls from 'local-storage'
+import PropTypes from 'prop-types'
+import { Login } from './login';
+
 const useStyles = theme => ({
   '@global': {
     body: {
@@ -35,31 +40,33 @@ const useStyles = theme => ({
   },
 });
 
+/**
+ * login form component
+ * @param {*} props 
+ */
 const LogIn = (props) => {
 
-  const [username, setUsername] = useState("")
-  const [password, setPassword] = useState("")
+  useEffect(() => {
+    if (ls.get('isAuthenticated')) {
+      login(() => props.history.push('/home'))
+    }
+  })
+
   function handleUserNameChange(event) {
-    setUsername(event.target.value)
+    props.setUsername(event.target.value)
   }
 
   function handlePasswordChange(event) {
-    setPassword(event.target.value)
+    props.setPassword(event.target.value)
   }
-  
-  function handleSubmit() {
 
+  function handleSubmit() {
+    let username = props.username
+    let password = props.password
     const credentials = JSON.stringify({ username, password });
 
-    axios.post('http://localhost:3001/login', credentials,
-      {
-        headers: { "Content-Type": "application/json" }
-      }).then((response) => {
-        // console.log(response.data)
-        if (response.data.access_token) {
-          auth.login(() => props.history.push('/home'))
-        }
-      }).catch(error => console.log('error'))
+    props.checkLoginCredentials(credentials);
+
   }
   const { classes } = props;
   return (
@@ -115,4 +122,38 @@ const LogIn = (props) => {
     </Container>
   );
 }
-export default withStyles(useStyles)(withRouter(LogIn))
+
+const mapStateToProps = (state) => {
+  return {
+    username: state.username,
+    password: state.password,
+    token: state.token
+  }
+}
+
+const mapDispatchToProps = dispatch => {
+  return {
+    setUsername: username => {
+      dispatch({
+        type: "SET_USERNAME",
+        username
+      })
+    },
+    setPassword: password => {
+      dispatch({
+        type: "SET_PASSWORD",
+        password
+      })
+    },
+    checkLoginCredentials: (credentials) => { checkLoginCredentials(credentials, dispatch) }
+  }
+}
+
+Login.propTypes = {
+  username: PropTypes.string,
+  password: PropTypes.string,
+  setPassword: PropTypes.func,
+  setUsername: PropTypes.func
+}
+
+export default withStyles(useStyles)(withRouter(connect(mapStateToProps, mapDispatchToProps)(LogIn)))

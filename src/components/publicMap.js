@@ -3,9 +3,9 @@ import mapboxgl from "mapbox-gl";
 import "react-map-gl-geocoder/dist/mapbox-gl-geocoder.css";
 import "mapbox-gl/dist/mapbox-gl.css";
 import MapboxGeocoder from '@mapbox/mapbox-gl-geocoder'
-import {connect} from 'react-redux'
-
-const styles= {
+import { connect } from 'react-redux'
+import PropTypes from 'prop-types'
+const styles = {
   marginTop: "28px",
   width: "calc(99.5vw )",
   height: "calc(87vh - 5px)",
@@ -21,7 +21,7 @@ const MapboxGLMap = (props) => {
     var map = new mapboxgl.Map({
       container: mapContainer.current,
       style: 'mapbox://styles/mapbox/streets-v11',
-      center: [-96,36.5],
+      center: [-96, 36.5],
       zoom: 9
     });
     map.addControl(new mapboxgl.GeolocateControl({
@@ -35,10 +35,10 @@ const MapboxGLMap = (props) => {
       mapboxgl: mapboxgl
     }));
     setMap(map)
-    
+    return () => map.remove()
   }, [])
-  
-  if (map !== null ) {
+
+  if (map !== null) {
     map.on('click', function (event) {
       if (marker != null) {
         marker.remove()
@@ -46,8 +46,8 @@ const MapboxGLMap = (props) => {
       marker = new mapboxgl.Marker()
         .setLngLat(event.lngLat)
         .addTo(map);
-      let center=[event.lngLat.lng,event.lngLat.lat]
-       props.getCenter(center)
+      let center = [event.lngLat.lng, event.lngLat.lat]
+      props.getCenter(center)
     })
   }
   if (map != null && props.check) {
@@ -64,7 +64,7 @@ const MapboxGLMap = (props) => {
 
   return (
     <div>
-      <div ref={el => (mapContainer.current = el)} style={styles} />
+      <div ref={el => (mapContainer.current = el)} style={props.styles || styles} />
       <div className="switch-field">
         <input id='streets-v11' type='radio' name='rtoggle' value='streets' defaultChecked onClick={() => map.setStyle("mapbox://styles/mapbox/streets-v11")} />
         <label htmlFor='streets-v11'>streets</label>
@@ -76,22 +76,27 @@ const MapboxGLMap = (props) => {
 };
 
 
-const mapStateToProps=(state)=>{
-  return{
-    center:state.center
+const mapStateToProps = (state) => {
+  return {
+    center: state.center
   }
 }
 
 const mapDispatchToProps = dispatch => {
   return {
-      getCenter:center=>{
-          dispatch({
-              type:"getCenter",
-              center
-          })
-      }
+    getCenter: center => {
+      dispatch({
+        type: "GET_CENTER",
+        center
+      })
+    }
   }
 }
 
-export default connect(mapStateToProps,mapDispatchToProps) (MapboxGLMap);
+MapboxGLMap.propTypes = {
+  center: PropTypes.array,
+  getCenter: PropTypes.func
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(MapboxGLMap);
 

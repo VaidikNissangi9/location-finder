@@ -1,11 +1,13 @@
 import React from 'react'
 import Navbar from './Navbar'
-import auth from './auth'
+import { logout } from './auth'
+
+
 const home = (props) => {
   return (
     <React.Fragment>
       <Navbar onSubmit={() => {
-        auth.logout(() => {
+        logout(() => {
           props.history.push("/");
         });
       }} log='Logout' type='locations' showList={() => {
