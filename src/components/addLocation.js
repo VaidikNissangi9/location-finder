@@ -1,9 +1,9 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 // import mapboxgl from "mapbox-gl";
 import "react-map-gl-geocoder/dist/mapbox-gl-geocoder.css";
 import "mapbox-gl/dist/mapbox-gl.css";
 import Navbar from './Navbar'
-import { logout } from "./auth";
+import {logout}  from "./auth";
 import { Snackbar } from "@material-ui/core";
 import { connect } from 'react-redux'
 import PublicMap from './publicMap'
@@ -19,16 +19,12 @@ const addLocation = (props) => {
   };
 
   const [message, setMessage] = useState("")
-  useEffect(() => {
-    if (props.locationAdded) {
-      setMessage('success')
-      setisSnackbarOpen(true)
-    }
-  }, [props.locationAdded])
 
   function handleAddLocation() {
     let center = { lng: props.center[0], lat: props.center[1] }
     props.addLocations(center);
+      setMessage('success')
+      setisSnackbarOpen(true)
   }
 
   return (
@@ -65,7 +61,6 @@ const addLocation = (props) => {
 const mapStateToProps = (state) => {
   return {
     center: state.center,
-    locationAdded: state.locationAdded
   }
 }
 
@@ -83,7 +78,6 @@ const mapDispatchToProps = dispatch => {
 
 addLocation.propTypes = {
   center: PropTypes.array,
-  locationAdded: PropTypes.bool,
   getCenter: PropTypes.func,
   addLocations: PropTypes.func
 }

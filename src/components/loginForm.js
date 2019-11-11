@@ -13,7 +13,6 @@ import { connect } from 'react-redux'
 import { checkLoginCredentials } from '../actions/loginActions'
 import ls from 'local-storage'
 import PropTypes from 'prop-types'
-import { Login } from './login';
 
 const useStyles = theme => ({
   '@global': {
