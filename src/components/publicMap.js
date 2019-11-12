@@ -8,7 +8,7 @@ import PropTypes from 'prop-types'
 const styles = {
   marginTop: "28px",
   width: "calc(99.5vw )",
-  height: "calc(87vh - 5px)",
+  height: "calc(85vh - 5px)",
   position: "absolute"
 }
 
@@ -87,7 +87,7 @@ const mapDispatchToProps = dispatch => {
     getCenter: center => {
       dispatch({
         type: "GET_CENTER",
-        center
+        payload: center
       })
     }
   }

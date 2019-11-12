@@ -10,7 +10,7 @@ export const SET_TOKEN = 'SET_TOKEN'
 export const ADD_LOCATION_SUCCESS = 'ADD_LOCATION_SUCCESS'
 
 /**
- * returns Login success type
+ * this is a dispatch function called when login is successfull which uses the response as param.
  * @param {*} response 
  */
 export function loginSuccess(response) {
@@ -21,7 +21,7 @@ export function loginSuccess(response) {
 }
 
 /**
- * return login error type
+ * this is a dispatch function called when login is not successfull
  * @param {*} error 
  */
 export function loginError(error) {
@@ -49,6 +49,6 @@ export function addsLocations(response) {
 export function setLocations(data) {
     return {
         type: GET_LOCATIONS,
-        locations: data
+        payload: data
     };
 }

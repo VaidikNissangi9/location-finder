@@ -14,17 +14,17 @@ export const reducer = (state = initialState, action) => {
         case actionTypes.GET_LOCATIONS:
             return {
                 ...state,
-                locations: action.locations
+                locations: action.payload
             }
         case actionTypes.REVERSE_LOCATIONS:
-            let newLocations = action.locations;
+            let newLocations = action.payload;
             let updatedLocations = [...newLocations]
             return {
                 ...state,
                 locations: updatedLocations
             }
         case actionTypes.GET_CENTER:
-            let newCenter = action.center;
+            let newCenter = action.payload;
             let updatedCenter = [...newCenter]
             return {
                 ...state,
@@ -33,17 +33,17 @@ export const reducer = (state = initialState, action) => {
         case actionTypes.SET_USERNAME:
             return {
                 ...state,
-                username: action.username
+                username: action.payload
             }
         case actionTypes.SET_PASSWORD:
             return {
                 ...state,
-                password: action.password
+                password: action.payload
             }
         case actionTypes.SET_TOKEN:
             return {
                 ...state,
-                token: [...action.token]
+                token: [...action.payload]
             }
         case actionTypes.LOGIN_SUCCESS:
             // console.log('success', action.payload)

@@ -6,7 +6,8 @@ import ls from 'local-storage';
  */
 export function login(urlPush) {
   ls.set('isAuthenticated', true)
-  urlPush();
+  if (typeof urlPush === 'function')
+    urlPush()
 }
 
 /**
@@ -15,6 +16,7 @@ export function login(urlPush) {
  */
 export function logout(urlPush) {
   ls.set('isAuthenticated', false)
-  urlPush();
+  if (typeof urlPush === 'function')
+    urlPush();
 }
 

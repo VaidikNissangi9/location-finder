@@ -137,13 +137,13 @@ const mapDispatchToProps = dispatch => {
     setUsername: username => {
       dispatch({
         type: "SET_USERNAME",
-        username
+        payload: username
       })
     },
     setPassword: password => {
       dispatch({
         type: "SET_PASSWORD",
-        password
+        payload: password
       })
     },
     checkLoginCredentials: (credentials) => { checkLoginCredentials(credentials, dispatch) }

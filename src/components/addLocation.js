@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import "react-map-gl-geocoder/dist/mapbox-gl-geocoder.css";
 import "mapbox-gl/dist/mapbox-gl.css";
 import Navbar from './Navbar'
-import {logout}  from "./auth";
+import { logout } from "./auth";
 import { Snackbar } from "@material-ui/core";
 import { connect } from 'react-redux'
 import PublicMap from './publicMap'
@@ -23,8 +23,8 @@ const addLocation = (props) => {
   function handleAddLocation() {
     let center = { lng: props.center[0], lat: props.center[1] }
     props.addLocations(center);
-      setMessage('success')
-      setisSnackbarOpen(true)
+    setMessage('success')
+    setisSnackbarOpen(true)
   }
 
   return (
@@ -69,7 +69,7 @@ const mapDispatchToProps = dispatch => {
     getCenter: center => {
       dispatch({
         type: "GET_CENTER",
-        center
+        payload: center
       })
     },
     addLocations: center => { addLocations(center, dispatch) }

@@ -3,7 +3,7 @@ import { loginError, loginSuccess } from './actions'
 import ls from 'local-storage'
 
 /**
- * Authenticates the credentials
+ * this function is used to checks the login @param credentials with the backend and dispatches
  * @param {*} credentials 
  * @param {*} dispatch 
  */
@@ -14,6 +14,9 @@ export function checkLoginCredentials(credentials, dispatch) {
     }).then((response) => {
       // console.log(response.data)
       ls.set('isAuthenticated', true)
+      ls.set('access_token',response.data.access_token)
       dispatch(loginSuccess(response))
-    }).catch(error => dispatch(loginError(error)))
+    }).catch(error => {
+      ls.set('access_token'," ")
+      dispatch(loginError(error))})
 }

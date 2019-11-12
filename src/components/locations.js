@@ -88,13 +88,13 @@ const mapDispatchToProps = dispatch => {
         reverseLocations: locations => {
             dispatch({
                 type: "REVERSE_LOCATIONS",
-                locations: locations.reverse()
+                payload: locations.reverse()
             })
         },
         getCenter: center => {
             dispatch({
                 type: "GET_CENTER",
-                center
+                payload: center
             })
         },
         setLocations: () => fetchLocations(dispatch)
