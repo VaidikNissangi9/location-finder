@@ -22,13 +22,13 @@ const useStyles = makeStyles(theme => ({
 
 export default function ButtonAppBar(props) {
     const classes = useStyles();
-
+    // console.log(props)
     return (
         <div className={classes.root}>
             <AppBar position="static" color="secondary">
                 <Toolbar>
-                    <Typography variant="h6" className={classes.title}>
-                        Location Finder
+                    <Typography variant="h6" className={classes.title}  >
+                        <Button color="inherit" onClick={props.history} > Location Finder </Button>
                     </Typography>
                     <Button color="inherit" onClick={props.showMaps || props.showList}  >{props.type} </Button>
                     <Button type="submit" color="inherit" onClick={props.onSubmit}  >{props.log} </Button>

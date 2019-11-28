@@ -38,7 +38,7 @@ const MapboxGLMap = (props) => {
     return () => map.remove()
   }, [])
 
-  if (map !== null) {
+  if (map !== null && props.enable) {
     map.on('click', function (event) {
       if (marker != null) {
         marker.remove()
@@ -63,7 +63,7 @@ const MapboxGLMap = (props) => {
   }
 
   return (
-    <div>
+    <div style={{ position: 'relative', width: '100%' }}>
       <div ref={el => (mapContainer.current = el)} style={props.styles || styles} />
       <div className="switch-field">
         <input id='streets-v11' type='radio' name='rtoggle' value='streets' defaultChecked onClick={() => map.setStyle("mapbox://styles/mapbox/streets-v11")} />

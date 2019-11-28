@@ -17,16 +17,16 @@ let props = {
 describe('Landing component renders', () => {
     it('Navbar intially renders', () => {
         const wrapper = shallow(<Navbar />)
-        expect(wrapper.find(Button)).toHaveLength(2)
+        expect(wrapper.find(Button)).toHaveLength(3)
     })
     it('calls the onClick function when clicked maps button ', () => {
         const wrapper = shallow(<Navbar {...props} />)
-        wrapper.find(Button).at(0).props().onClick()
+        wrapper.find(Button).at(1).props().onClick()
         expect(props.showMaps).toHaveBeenCalled()
     })
     it('calls the onClick function when clicked login button ', () => {
         const wrapper = shallow(<Navbar {...props} />)
-        wrapper.find(Button).at(1).props().onClick()
+        wrapper.find(Button).at(2).props().onClick()
         expect(props.onSubmit).toHaveBeenCalled()
     })
 })

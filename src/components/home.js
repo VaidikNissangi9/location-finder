@@ -6,7 +6,7 @@ import { logout } from './auth'
 const home = (props) => {
   return (
     <React.Fragment>
-      <Navbar onSubmit={() => {
+      <Navbar history={() => { props.history.push("/home") }} onSubmit={() => {
         logout(() => {
           props.history.push("/");
         });

@@ -16,6 +16,7 @@ export function login(urlPush) {
  */
 export function logout(urlPush) {
   ls.set('isAuthenticated', false)
+  ls.set('access_token', null)
   if (typeof urlPush === 'function')
     urlPush();
 }

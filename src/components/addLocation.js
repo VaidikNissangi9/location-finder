@@ -25,11 +25,12 @@ const addLocation = (props) => {
     props.addLocations(center);
     setMessage('success')
     setisSnackbarOpen(true)
+    setTimeout(() => { props.history.push("/locations") }, 4000)
   }
 
   return (
     <div>
-      <Navbar log="logout" type="add" showList={handleAddLocation} onSubmit={() => {
+      <Navbar log="logout" type="add" history={() => { props.history.push("/home") }} showList={handleAddLocation} onSubmit={() => {
         logout(() => {
           props.history.push("/");
         });
@@ -39,7 +40,7 @@ const addLocation = (props) => {
           <div >
             {"Lat:" + props.center[0] + " Lng: " + props.center[1]}
           </div>
-          <PublicMap />
+          <PublicMap enable={true} />
         </div>
       </React.Fragment>
       {<Snackbar
