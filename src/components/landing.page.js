@@ -6,7 +6,7 @@ import ls from 'local-storage'
 export const LandingPage = (props) => {
   return (
     <div >
-      <Navbar
+      <Navbar history={() => { props.history.push("/home") }}
         showMaps={() => { props.history.push("/maps") }}
         onSubmit={() =>
           ls.get('isAuthenticated') ? props.history.push("/home") : props.history.push("/login")
